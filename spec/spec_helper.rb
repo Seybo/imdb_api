@@ -93,4 +93,7 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
+
+  # enables focus: true
+  config.filter_run_when_matching :focus
 end
