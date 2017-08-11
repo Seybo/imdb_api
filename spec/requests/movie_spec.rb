@@ -13,7 +13,7 @@ RSpec.describe 'Movies management', type: :request do
     end
 
     it 'returns status 200' do
-      expect(response).to have_http_status(200)
+      expect(response).to have_http_status :ok
     end
   end
 
@@ -28,7 +28,7 @@ RSpec.describe 'Movies management', type: :request do
       end
 
       it 'returns status code 200' do
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status :ok
       end
     end
 
@@ -36,7 +36,7 @@ RSpec.describe 'Movies management', type: :request do
       let(:movie_id) { 100 }
 
       it 'returns status code 404' do
-        expect(response).to have_http_status(404)
+        expect(response).to have_http_status :not_found
       end
 
       it 'returns a not found message' do
@@ -56,8 +56,8 @@ RSpec.describe 'Movies management', type: :request do
         expect(response.body).to match(/Validation failed: Title has already been taken/)
       end
 
-      it 'returns status code 200' do
-        expect(response).to have_http_status(422)
+      it 'returns status code 422' do
+        expect(response).to have_http_status :unprocessable_entity
       end
 
       it 'doesnt create a new movie' do
@@ -69,7 +69,7 @@ RSpec.describe 'Movies management', type: :request do
       before { post '/api/v1/movies', params: { title: 'Robocat', rating: 5 } }
 
       it 'returns status code 201' do
-        expect(response).to have_http_status(201)
+        expect(response).to have_http_status :created
       end
 
       it 'returns a record created message' do
