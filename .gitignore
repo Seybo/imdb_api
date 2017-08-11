@@ -11,3 +11,4 @@
 /config/database.yml
 /config/secrets.yml
 .rubocop_todo.yml
+/coverage/
