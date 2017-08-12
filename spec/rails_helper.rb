@@ -56,13 +56,14 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 
-  config.include RequestSpecHelper, type: :request
+  config.include RequestSpecHelper
+  config.include ControllerSpecHelper
 
   config.include FactoryGirl::Syntax::Methods
 
   # start by truncating all the tables but then use the faster transaction strategy the rest of the time.
   config.before(:suite) do
-    DatabaseCleaner.clean_with :truncation, except: %w(ar_internal_metadata public.schema_migrations)
+    DatabaseCleaner.clean_with :truncation, except: %w(public.ar_internal_metadata)
     DatabaseCleaner.strategy = :transaction
   end
 
