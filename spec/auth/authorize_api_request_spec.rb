@@ -47,7 +47,7 @@ describe AuthorizeApiRequest do
         it 'raises ExceptionHandler::ExpiredSignature error' do
           expect { request_obj.call }
             .to raise_error(
-              ExceptionHandler::AuthenticationError,
+              ExceptionHandler::ExpiredSignature,
               /Signature has expired/
             )
         end

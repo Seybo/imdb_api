@@ -15,6 +15,6 @@ class JsonWebToken
     HashWithIndifferentAccess.new body
     # rescue from expiry exception
   rescue JWT::ExpiredSignature, JWT::VerificationError => e
-    raise ExceptionHandler::AuthenticationError, e.message
+    raise ExceptionHandler::ExpiredSignature, e.message
   end
 end
