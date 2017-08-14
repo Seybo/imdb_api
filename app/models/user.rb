@@ -11,5 +11,17 @@
 #
 
 class User < ApplicationRecord
+  has_secure_password
+
+  before_validation :strip_email
+  validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, on: :create }
+  validates :email, uniqueness: { case_sensitive: false }
+
   validates :name, :email, :password_digest, presence: true
+
+  private
+
+  def strip_email
+    self.email = email.strip if email.present?
+  end
 end
