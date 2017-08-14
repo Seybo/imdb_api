@@ -1,5 +1,5 @@
 require 'rails_helper'
-RSpec.describe 'Movies management', type: :request do
+describe 'Movies management', type: :request do
   let!(:movies) { create_list(:movie, 10) }
   let(:movie_id) { movies.first.id }
   let(:movie_title) { movies.first.title }
@@ -47,10 +47,12 @@ RSpec.describe 'Movies management', type: :request do
 
 
   describe 'POST /movies' do
-    let(:valid_attributes) { { title: movie_title } }
+    let(:user) { create(:user) }
+    let(:valid_attributes) { { title: movie_title }.to_json }
+    let(:headers) { valid_headers }
 
     context 'when the record exists' do
-      before { post '/api/v1/movies', params: valid_attributes }
+      before { post '/api/v1/movies', params: valid_attributes, headers: headers }
 
       it 'returns the existed movie message' do
         expect(response.body).to match(/Validation failed: Title has already been taken/)
@@ -66,7 +68,7 @@ RSpec.describe 'Movies management', type: :request do
     end
 
     context 'when the record does not exist' do
-      before { post '/api/v1/movies', params: { title: 'Robocat', rating: 5 } }
+      before { post '/api/v1/movies', params: { title: 'Robocat', rating: 5 }.to_json, headers: headers }
 
       it 'returns status code 201' do
         expect(response).to have_http_status :created

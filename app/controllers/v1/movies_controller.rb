@@ -1,5 +1,6 @@
 class V1::MoviesController < ApplicationController
   before_action :set_movie, only: [:show, :rating]
+  skip_before_action :authorize_request, only: [:index, :show]
 
   def index
     json_response Movie.all
