@@ -1,4 +1,4 @@
-class V1::MoviesController < ApplicationController
+class V1::MoviesController < V1::ApplicationController
   before_action :set_movie, only: [:show, :rating]
   skip_before_action :authorize_request, only: [:index, :show]
 

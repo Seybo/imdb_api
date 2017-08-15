@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe ApplicationController, type: :controller do
+describe V1::ApplicationController, type: :controller do
   let!(:user) { create(:user) }
   let(:headers) { { 'Authorization' => token_generator(user.id) } }
   let(:invalid_headers) { { 'Authorization' => nil } }
