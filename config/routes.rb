@@ -5,7 +5,9 @@ Rails.application.routes.draw do
       post 'signup', to: 'users#create'
 
       resources :movies, only: [:index, :show, :create] do
-        get 'rating', on: :member
+        scope module: :movies do
+          resource :rating, only: [:create]
+        end
       end
     end
   end

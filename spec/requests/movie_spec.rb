@@ -1,5 +1,5 @@
 require 'rails_helper'
-describe 'Movies management', type: :request do
+describe 'Movies management', type: :request do # rubocop:disable Metrics/BlockLength
   let!(:movies) { create_list(:movie, 10) }
   let(:movie_id) { movies.first.id }
   let(:movie_title) { movies.first.title }
@@ -49,6 +49,7 @@ describe 'Movies management', type: :request do
   describe 'POST /movies' do
     let(:user) { create(:user) }
     let(:valid_attributes) { { title: movie_title }.to_json }
+    let(:invalid_attributes) { { title: movie_title, rating: 5 }.to_json }
     let(:headers) { valid_headers }
 
     context 'when the record exists' do
@@ -68,7 +69,7 @@ describe 'Movies management', type: :request do
     end
 
     context 'when the record does not exist' do
-      before { post '/api/v1/movies', params: { title: 'Robocat', rating: 5 }.to_json, headers: headers }
+      before { post '/api/v1/movies', params: { title: 'Robocat' }.to_json, headers: headers }
 
       it 'returns status code 201' do
         expect(response).to have_http_status :created
@@ -83,7 +84,12 @@ describe 'Movies management', type: :request do
       end
 
       it 'sets correct movie title' do
-        expect(Movie.last.attributes.extract!('title', 'rating')).to eq("title" => 'Robocat', "rating" => 5)
+        expect(Movie.last.attributes.extract!('title')).to eq("title" => 'Robocat')
+      end
+
+      it 'doesnt set rating if passed' do
+        post '/api/v1/movies', params: invalid_attributes, headers: headers
+        expect(Movie.last.rating).to eq nil
       end
     end
   end

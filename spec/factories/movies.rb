@@ -16,6 +16,5 @@
 FactoryGirl.define do
   factory :movie do
     title { Faker::Lorem.unique.sentence }
-    rating 1
   end
 end

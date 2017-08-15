@@ -4,9 +4,9 @@
 #
 #  id         :integer          not null, primary key
 #  title      :string
-#  rating     :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  rating     :integer
 #
 # Indexes
 #
@@ -14,5 +14,7 @@
 #
 
 class Movie < ApplicationRecord
+  has_many :ratings
+
   validates :title, presence: true, uniqueness: true
 end

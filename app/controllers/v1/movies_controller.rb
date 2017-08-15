@@ -26,6 +26,6 @@ class V1::MoviesController < V1::ApplicationController
   end
 
   def movie_params
-    params.permit(:title, :rating)
+    params.permit(:title)
   end
 end

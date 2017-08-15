@@ -16,6 +16,7 @@
 require 'rails_helper'
 
 describe Movie do
+  it { should have_many(:ratings) }
   it { should validate_presence_of(:title) }
   it { should validate_uniqueness_of(:title) }
 end
