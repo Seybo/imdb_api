@@ -27,4 +27,5 @@ describe Rating do
   it { should belong_to(:user) }
   it { should belong_to(:movie) }
   it { should validate_presence_of(:value) }
+  it { should validate_inclusion_of(:value).in_range 0..5 }
 end

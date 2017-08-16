@@ -5,8 +5,10 @@ class V1::Movies::RatingsController < V1::ApplicationController
     Rating.find_or_create_by!(user: @current_user, movie: @movie) do |rating|
       rating.value = params[:rating][:value]
     end
+    UpdateMovieRating.new(@movie).call
 
-    json_response "Your rating of #{params[:rating][:value]} to movie \"#{@movie.title}\" has been successfully set", :created
+    json_response "Your rating of #{params[:rating][:value]} to movie \"#{@movie.title}\" \
+has been successfully set", :created
   end
 
   private

@@ -26,4 +26,5 @@ class Rating < ApplicationRecord
   belongs_to :movie
 
   validates :value, presence: true
+  validates :value, inclusion: 0..5
 end
