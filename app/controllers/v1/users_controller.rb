@@ -1,6 +1,10 @@
 class V1::UsersController < V1::ApplicationController
   skip_before_action :authorize_request, only: :create
 
+  def show
+    json_response({ email: @current_user.email }, :ok)
+  end
+
   def create
     user = User.create!(user_params)
     auth_token = AuthenticateUser.new(user.email, user.password).call

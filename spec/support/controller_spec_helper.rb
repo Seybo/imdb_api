@@ -24,4 +24,12 @@ module ControllerSpecHelper
       "Content-Type" => "application/json"
     }
   end
+
+  # return invalid headers with wrong token
+  def invalid_headers_with_wrong_token
+    {
+      "Authorization" => token_generator(user.id) + 'wrong',
+      "Content-Type" => "application/json"
+    }
+  end
 end

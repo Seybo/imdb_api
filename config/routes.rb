@@ -2,7 +2,10 @@ Rails.application.routes.draw do
   scope '/api' do
     namespace :v1 do
       post 'auth/login', to: 'authentication#authenticate'
-      post 'signup', to: 'users#create'
+
+      post 'signup',  to: 'users#create'
+
+      resource :profile, only: [:show]
 
       resources :movies, only: [:index, :show, :create] do
         scope module: :movies do

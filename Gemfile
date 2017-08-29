@@ -26,6 +26,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'guard-rspec', require: false
+  gem 'railroady'
 end
 
 group :development do
